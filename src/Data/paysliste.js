@@ -67,7 +67,7 @@ const products = [
         country: "RDC",
         City1: "Kinshasa",
         City2: "Lumbubashi",
-        flag: "../Flag/congo.png",
+        flag: "../Flag/Congo.png",
         XAF: 7500,
         USD: 12.41,
     },

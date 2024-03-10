@@ -1,5 +1,4 @@
-import {useEffect} from "react";
-import {useState} from "react";
+import React, {useState, useEffect} from "react";
 import {Link, NavLink} from "react-router-dom";
 import {FaUserLarge} from "react-icons/fa6";
 
@@ -8,8 +7,7 @@ const Header = () => {
     const [darkMode, setDarkMode] = useState(
         JSON.parse(localStorage.getItem("darkMode")) || false
     );
-    const [showDropdown, setShowDropdown] = useState(false); // New state variable for dropdown menu
-
+    const [showDropdown, setShowDropdown] = useState(false);
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -30,42 +28,62 @@ const Header = () => {
     const inActiveClass =
         "text-base block py-2 pr-4 pl-3 text-first-700 rounded hover:bg-first-100 md:hover:bg-transparent md:hover:text-second-700 md:p-0 md:dark:hover:text-white dark:text-first-400 dark:hover:bg-first-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-first-700";
 
+    const handleMenuItemClick = () => {
+        setHidden(true); // Close the menu on click
+        setShowDropdown(false); // Close dropdown when a menu item is clicked
+    };
+
     return (
-        <header className="sticky z-20 top-0 ">
+        <header className="sticky z-20 top-0">
             <nav
                 className="bg-white border-b-2 border-first-200 px-2 sm:px-4 py-2 dark:bg-first-950 dark:border-b-1 dark:border-first-700">
-                <div className=" flex flex-wrap justify-between items-center mx-auto">
+                <div className="flex flex-wrap justify-between items-center mx-auto">
                     <Link to="/" className="flex items-center">
-                            <span className="text-2xl self-center font-semibold whitespace-nowrap dark:text-white">
-              Medinchina
-            </span>
-                        <h5 className="dark:text-third-500">AGENCE</h5>
+                        <span
+                            className="text-2xl sm:text-xl self-center font-semibold whitespace-nowrap dark:text-white">
+                            Medinchina
+                        </span>
+                        <h6 className="dark:text-third-500 sm:text-xl">AGENCE</h6>
 
                     </Link>
 
                     <div id="mobile-nav" className="flex md:order-2">
                         <div className="flex gap-2 ">
                             <div className="relative">
-                                <button onClick={toggleDropdown}
-                                        type="button"
-                                        className="flex items-center p-2 mr-2 text-xs font-medium text-first-700 bg-white rounded-lg border border-first-200 toggle-dark-state-example hover:bg-first-100 hover:text-second-700 focus:z-10 focus:ring-2 focus:ring-first-300 dark:focus:ring-first-500 dark:bg-first-800 focus:outline-none dark:text-first-400 dark:border-first-600 dark:hover:text-white dark:hover:bg-first-700">
-                                     <span className="">
-     <FaUserLarge className="h-4 w-5"/>
-
-    </span>
-
+                                <button
+                                    onClick={toggleDropdown}
+                                    type="button"
+                                    className="flex items-center p-2 mr-2 text-xs font-medium text-first-700 bg-white rounded-lg border border-first-200 toggle-dark-state-example hover:bg-first-100 hover:text-second-700 focus:z-10 focus:ring-2 focus:ring-first-300 dark:focus:ring-first-500 dark:bg-first-800 focus:outline-none dark:text-first-400 dark:border-first-600 dark:hover:text-white dark:hover:bg-first-700"
+                                >
+                                    <span className="">
+                                        <FaUserLarge className="h-4 w-5"/>
+                                    </span>
                                 </button>
-
 
                                 {showDropdown && (
                                     <div
                                         className="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-md shadow-lg z-10">
-                                        <Link to="/login"
-                                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Login</Link>
-                                        <Link to="/logout"
-                                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</Link>
-                                        <Link to="/profile"
-                                              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</Link>
+                                        <Link
+                                            to="/login"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            onClick={handleMenuItemClick}
+                                        >
+                                            Login
+                                        </Link>
+                                        <Link
+                                            to="/logout"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            onClick={handleMenuItemClick}
+                                        >
+                                            Logout
+                                        </Link>
+                                        <Link
+                                            to="/profile"
+                                            className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                            onClick={handleMenuItemClick}
+                                        >
+                                            Profile
+                                        </Link>
                                     </div>
                                 )}
                             </div>
@@ -102,14 +120,13 @@ const Header = () => {
                                             xmlns="http://www.w3.org/2000/svg"
                                         >
                                             <path
-                                                d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"></path>
+                                                d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"
+                                            ></path>
                                         </svg>
                                     )}
                                 </button>
                             </div>
-
                         </div>
-
 
                         <button
                             onClick={() => setHidden(!hidden)}
@@ -144,8 +161,6 @@ const Header = () => {
                     >
                         <div className="relative mt-3 md:hidden"></div>
                         <ul className="flex flex-col p-4 mt-4 bg-first-50 rounded-lg border border-first-100 md:flex-row md:space-x-8 md:mt-0 md:text-sm md:font-medium md:border-0 md:bg-white dark:bg-first-900 md:dark:bg-first-950 dark:border-first-700">
-
-
                             <li>
                                 <NavLink
                                     to="/house-list"
@@ -153,6 +168,7 @@ const Header = () => {
                                         isActive ? activeClass : inActiveClass
                                     }
                                     end
+                                    onClick={handleMenuItemClick}
                                 >
                                     Business
                                 </NavLink>
@@ -164,6 +180,7 @@ const Header = () => {
                                     className={({isActive}) =>
                                         isActive ? activeClass : inActiveClass
                                     }
+                                    onClick={handleMenuItemClick}
                                 >
                                     Self
                                 </NavLink>
@@ -174,6 +191,7 @@ const Header = () => {
                                     className={({isActive}) =>
                                         isActive ? activeClass : inActiveClass
                                     }
+                                    onClick={handleMenuItemClick}
                                 >
                                     Pays & Ville
                                 </NavLink>
@@ -185,6 +203,7 @@ const Header = () => {
                                     className={({isActive}) =>
                                         isActive ? activeClass : inActiveClass
                                     }
+                                    onClick={handleMenuItemClick}
                                 >
                                     Transport
                                 </NavLink>
@@ -196,6 +215,7 @@ const Header = () => {
                                     className={({isActive}) =>
                                         isActive ? activeClass : inActiveClass
                                     }
+                                    onClick={handleMenuItemClick}
                                 >
                                     Contact
                                 </NavLink>
