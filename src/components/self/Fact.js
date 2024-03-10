@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 
-const Moq = () => {
+const Fact = () => {
+
     const [price, setPrice] = useState("");
-    const [quantity, setQuantity] = useState("");
     const [currency, setCurrency] = useState("USD");
-    const [finalPrice, setFinalPrice] = useState("");
     const [benefit, setBenefit] = useState("");
     const [userStatus, setUserStatus] = useState("");
 
@@ -13,8 +12,6 @@ const Moq = () => {
     useEffect(() => {
         // Reset price, quantity, finalPrice, benefit, and userStatus
         setPrice("");
-        setQuantity("");
-        setFinalPrice("");
         setBenefit("");
         setUserStatus("");
     }, [currency]);
@@ -22,84 +19,74 @@ const Moq = () => {
 
     const calculateTotalAndStatus = () => {
         const priceValue = parseFloat(price);
-        const quantityValue = parseFloat(quantity);
-
-        if (priceValue < 1 || quantityValue < 1) {
-            alert("Veuillez entrer des valeurs valides");
-            return;
-        } else if (isNaN(priceValue) || isNaN(quantityValue)) {
-            alert("Veuillez entrer des valeurs valides");
-            return;
-        }
-
-        let total = 0;
-        let status = "";
+        let total;
+        let status;
 
         switch (currency) {
             case "USD":
-                total = priceValue * quantityValue;
+                total = priceValue;
                 if (total >= 1 && total <= 241.93) {
-                    total = priceValue * quantityValue * 0.18;
+                    total = priceValue * 0.18;
                     status = "Basic";
                 } else if (total >= 241.93 && total <= 1000) {
-                    total = priceValue * quantityValue * 0.115;
+                    total = priceValue * 0.115;
                     status = "Startup";
                 } else if (total >= 1000 && total <= 15000) {
-                    total = priceValue * quantityValue * 0.06;
+                    total = priceValue * 0.06;
                     status = "Enterprise";
                 } else {
-                    total = priceValue * quantityValue * 0.04;
+                    total = priceValue * 0.04;
                     status = "Entreprise";
                 }
                 break;
 
             case "EUR":
-                total = priceValue * quantityValue;
+                total = priceValue;
                 if (total >= 1 && total <= 250) {
-                    total = priceValue * quantityValue * 0.18;
+                    total = priceValue * 0.18;
                     status = "Basic";
-                } else if (total >= 250 && total <= 1000) {
-                    total = priceValue * quantityValue * 0.115;
+                } else if (total > 250 && total <= 1000) {
+                    total = priceValue * 0.115;
                     status = "Startup";
-                } else if (total >= 1000 && total <= 15000) {
-                    total = priceValue * quantityValue * 0.06;
+                } else if (total > 1000 && total <= 15000) {
+                    total = priceValue * 0.06;
                     status = "Enterprise";
                 } else {
-                    total = priceValue * quantityValue * 0.04;
+                    total = priceValue * 0.04;
                     status = "Entreprise";
                 }
                 break;
 
             case "RMB":
-                total = priceValue * quantityValue;
+                total = priceValue;
                 if (total >= 1 && total <= 1800) {
-                    total = priceValue * quantityValue * 0.18;
+                    total = priceValue * 0.18;
                     status = "Basic";
                 } else if (total >= 1800 && total <= 7300) {
-                    total = priceValue * quantityValue * 0.115;
+                    total = priceValue * 0.115;
                     status = "Startup";
                 } else if (total >= 7300 && total <= 110000) {
-                    total = priceValue * quantityValue * 0.06;
+                    total = priceValue * 0.06;
                     status = "Enterprise";
                 } else {
-                    total = priceValue * quantityValue * 0.04;
+                    total = priceValue * 0.04;
                     status = "Entreprise";
                 }
                 break;
 
             case "FCFA":
-                total = priceValue * quantityValue;
+                total = priceValue;
                 if (total >= 1 && total <= 150000) {
-                    total = priceValue * quantityValue * 0.18;
+                    total = priceValue * 0.18;
                     status = "Basic";
                 } else if (total >= 150000 && total <= 600000) {
-                    total = priceValue * quantityValue * 0.115;
+                    total = priceValue * 0.115;
                     status = "Startup";
                 } else if (total >= 600000 && total <= 10000000) {
-                    total = priceValue * quantityValue * 0.06;
+                    total = priceValue * 0.06;
                     status = "Enterprise";
                 } else {
-                    total = priceValue * quantityValue * 0.04;
+                    total = priceValue * 0.04;
                     status = "Entreprise";
                 }
                 break;
@@ -109,30 +96,28 @@ const Moq = () => {
                 status = "Undefined Currency";
         }
 
-        const calculatedBenefit = total + priceValue * quantityValue;
+        const calculatedBenefit = total + priceValue;
 
-        setFinalPrice(total.toFixed(2));
         setUserStatus(status);
         setBenefit(calculatedBenefit.toFixed(2));
     };
-    //alert("Veuillez entrer des valeurs valides");
 
-    // const priceValue = parseFloat(price);
     return (
         <div className=" justify-center items-center  bg-white">
             <div className="container mx-auto my-4 px-4 lg:px-20">
 
                 <div className="w-full p-8 my-4 md:px-12 lg:w-9/12 lg:pl-20 lg:pr-40 mr-auto rounded-2xl shadow-2xl">
                     <div className="flex">
-                        <h1 className="font-bold uppercase text-5xl">à vous <br/> de jouer</h1>
+                        <h1 className="font-bold uppercase text-5xl">Validez <br/> nos Services! </h1>
                     </div>
                     <div className="grid grid-cols-1 gap-5 md:grid-cols-2 mt-5">
                         <div>
                             <label htmlFor="firstName" className="block text-sm font-medium">Devise</label>
                             <select id="currency"
                                     value={currency}
-                                    onChange={(e) => setCurrency(e.target.value)} required
-                                    className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline">
+                                    onChange={(e) => setCurrency(e.target.value)}
+                                    className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+                            >
                                 <option value="EUR">EUR</option>
                                 <option value="USD">USD</option>
                                 <option value="RMB">RMB</option>
@@ -140,8 +125,8 @@ const Moq = () => {
                             </select>
                         </div>
                         <div>
-                            <label htmlFor="lastName" className="block text-sm font-medium">Montant (Unité)</label>
-                            <input placeholder="Prix de l'article"
+                            <label htmlFor="lastName" className="block text-sm font-medium">Montant </label>
+                            <input placeholder="Le total de la facture"
                                    id="price"
                                    value={price}
                                    type="number"
@@ -150,44 +135,23 @@ const Moq = () => {
                                    className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"/>
                         </div>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium">Quantité</label>
-                            <input placeholder="Le nombre d'article ou MOQ"
-                                   id="quantity"
-                                   value={quantity}
-                                   type="number"
-                                   onChange={(e) => setQuantity(e.target.value)}
-                                   required
-                                   className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"/>
-                        </div>
-                        <div>
-                            <label htmlFor="phone" className="block text-sm font-medium">Commission</label>
-                            <input placeholder=""
-                                   type="text"
-                                   id="finalPrice"
-                                   value={finalPrice + " " + currency}
-                                   disabled={true}
-                                   required
-                                   className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"/>
-                        </div>
-                        <div>
-                            <label htmlFor="email" className="block text-sm font-medium">Montant Final</label>
+                            <label htmlFor="email" className="block text-sm font-medium"> Montant avec
+                                frais en {currency} </label>
                             <input placeholder=""
                                    type="text"
                                    id="finalPrice"
                                    value={benefit + " " + currency}
-                                   disabled={true}
-                                   required
+                                   disabled="disabled"
                                    className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"/>
                         </div>
                         <div>
-                            <label htmlFor="phone" className="block text-sm font-medium">Status de la commande</label>
+                            <label htmlFor="phone" className="block text-sm font-medium">Status</label>
                             <input placeholder="" // a modifier
                                    type="status"
                                    id="userStatus"
                                    value={userStatus}
-                                   disabled={true}
-                                   required
-                                   className="w-full bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"/>
+                                   disabled="disabled" required
+                                   className="w-full bg-gray-100 font-bold text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"/>
                         </div>
                     </div>
                     <div className="my-4">
@@ -198,14 +162,12 @@ const Moq = () => {
 
                         </div>
                     </div>
-                    <div className="my-2 w-1/2 lg:w-1/4">
-                        <button type="submit" id="calculate"
+                    <div className="my-2  w-1/2 lg:w-1/4">
+                        <button id="calculate"
                                 onClick={calculateTotalAndStatus} className="uppercase text-sm font-bold tracking-wide bg-second-900 text-gray-100 p-3 rounded-lg w-full
                       focus:outline-none focus:shadow-outline">
                             Calculez
                         </button>
-
-
                     </div>
                 </div>
 
@@ -258,7 +220,8 @@ const Moq = () => {
 
 
         </div>
+
     );
 };
 
-export default Moq;
+export default Fact;
