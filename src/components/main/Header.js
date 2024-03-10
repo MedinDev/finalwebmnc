@@ -43,7 +43,6 @@ const Header = () => {
                             className="text-2xl sm:text-xl self-center font-semibold whitespace-nowrap dark:text-white">
                             Medinchina
                         </span>
-                        <h6 className="dark:text-third-500 sm:text-xl">AGENCE</h6>
 
                     </Link>
 
